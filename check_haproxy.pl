@@ -20,6 +20,7 @@
 #
 # $Id: $
 
+no warnings 'numeric';
 use strict;					# should never be differently :-)
 use warnings;
 
@@ -226,7 +227,7 @@ $np->add_perfdata(
 	'threshold' => $np->threshold()
 );
 
-if ( $status > OK ) {
+if ( $status ne "OK" ) {
 	$np->add_message($status, sprintf(_gt("Response time degraded: %.6fs !"),$timer) );
 }
 
@@ -238,7 +239,7 @@ my $message = 'msg';
 
 ($status, $message) = $np->check_messages();
 
-if ( $status == OK && $stats ne "") {
+if ( $status eq "OK" && $stats ne "") {
 
 	if ($DEBUG) {
 		print "------------------===csv output===------------------\n$stats\n-----------------------------------------------------\n";
@@ -356,7 +357,7 @@ if ( $status == OK && $stats ne "") {
 	#print Dumper(\%stats2);
 	($status, $message) = $np->check_messages('join' => ' ');
 
-	if ( $status == OK ) {
+	if ( $status eq "OK" ) {
 		$message = $okMsg;
 
 	}
@@ -428,5 +429,6 @@ In F<services.cfg> you just have to add something like :
 Stéphane Urbanovski <stephane.urbanovski@ac-nancy-metz.fr>
 David BERARD <david@nfrance.com>
 Claudio Kuenzler <ck@claudiokuenzler.com>
+Raymond Laurent <rlaurent50.rl@gmail.com>
 
 =cut
